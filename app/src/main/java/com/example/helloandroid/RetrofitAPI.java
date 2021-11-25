@@ -4,6 +4,7 @@
 
 package com.example.helloandroid;
 
+import com.example.helloandroid.Parser.Icon;
 import com.example.helloandroid.Parser.LeagueInfo;
 import com.example.helloandroid.Parser.MatchInfo;
 import com.example.helloandroid.Parser.Spector;
@@ -49,4 +50,6 @@ public interface RetrofitAPI {
             @Query("api_key") String api_key
     );
 
+    @GET("/cdn/10.6.1/data/en_US/runesReforged.json")
+    Call<List<Icon>> getIcon();
 }

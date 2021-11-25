@@ -3,7 +3,6 @@ package com.example.helloandroid;
 import androidx.annotation.NonNull;
 
 import com.example.helloandroid.Fb.Game;
-import com.example.helloandroid.Fb.PlayGame;
 import com.example.helloandroid.Parser.BannedChampion;
 import com.example.helloandroid.Parser.LeagueInfo;
 import com.example.helloandroid.Parser.Participant;
@@ -24,7 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 public class ThreadTest extends Thread{
     private DatabaseReference mDatabaseRef;
     Game game = new Game();
-    PlayGame pg = new PlayGame();
     int soloRankNum;
     public void run(){
             try {
