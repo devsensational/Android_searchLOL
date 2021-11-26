@@ -38,5 +38,6 @@ public class MainActivity extends AppCompatActivity {
         th1.start();
         //버전관리 힘들다
         //버전관리!!!!!
+        //버전관리테스트##@@@!@@$@#%#$^#$
     }
 }
