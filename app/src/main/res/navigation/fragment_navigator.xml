@@ -35,14 +35,14 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
-        <action
             android:id="@+id/action_loginFragment_to_findFragment"
             app:destination="@id/findIDFragment" />
         <action
             android:id="@+id/action_loginFragment_to_findPasswordFragment"
             app:destination="@id/findPasswordFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_mainFragment_formem"
+            app:destination="@id/mainFragment_formem" />
     </fragment>
     <fragment
         android:id="@+id/findIDFragment"
@@ -87,4 +87,12 @@
         android:name="com.example.helloandroid.inGame.InGameFragment"
         android:label="fragment_in_game"
         tools:layout="@layout/fragment_in_game" />
+    <fragment
+        android:id="@+id/mainFragment_formem"
+        android:name="com.example.helloandroid.main_view.MainFragment_formem"
+        android:label="MainFragment_formem" >
+        <action
+            android:id="@+id/action_mainFragment_formem_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 </navigation>

@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import com.example.helloandroid.R;
 
 
-public class MainFragment extends Fragment {
+public class MainFragment_formem extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -22,13 +22,13 @@ public class MainFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public MainFragment() {
+    public MainFragment_formem() {
         // Required empty public constructor
     }
 
 
-    public static MainFragment newInstance(String param1, String param2) {
-        MainFragment fragment = new MainFragment();
+    public static MainFragment_formem newInstance(String param1, String param2) {
+        MainFragment_formem fragment = new MainFragment_formem();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
