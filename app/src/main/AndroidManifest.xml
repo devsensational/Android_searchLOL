@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HelloAndroid">
-        <activity android:name=".FindPW"></activity>
+        <activity android:name=".UserAccount"></activity>
+        <activity android:name=".FindPW" />
         <activity android:name=".FindID" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
