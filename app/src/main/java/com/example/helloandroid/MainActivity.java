@@ -27,15 +27,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        RiotAPIClass riotAPIClass = new RiotAPIClass();
-        ThreadTest tt = new ThreadTest();
-        riotAPIClass.setSummonerName("모든사람은소중해"); //전적갱신 예시
-        riotAPIClass.start();
-        ThreadTest th1 = new ThreadTest(); //UI예시
-        th1.start();
-        //버전관리 힘들다
-        //버전관리!!!!!
-        //버전관리테스트##@@@!@@$@#%#$^#$
-        //버전관리~~~~
     }
 }

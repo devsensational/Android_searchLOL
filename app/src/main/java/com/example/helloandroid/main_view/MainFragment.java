@@ -65,12 +65,9 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 EditText editText;
-                View v = inflater.inflate(R.layout.fragment_main,container,false);
-                editText = v.findViewById(R.id.editTextTextPersonName4);
+                editText = inflateView.findViewById(R.id.editTextTextPersonName4);
                 DataHandlerObject.summonerName = editText.getText().toString();
                 Navigation.findNavController(inflateView).navigate(R.id.action_mainFragment_to_searchFragment);
-                System.out.println("TEST : " + DataHandlerObject.summonerName);
-                System.out.println("TEST : " + editText.getText().toString());
             }
         });
 

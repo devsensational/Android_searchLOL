@@ -98,6 +98,7 @@ public class SearchFragment extends Fragment {
         predictionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Navigation.findNavController(inflateView).navigate(R.id.action_searchFragment_to_predictionFragment);
             }
         });

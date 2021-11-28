@@ -19,14 +19,10 @@ import com.example.helloandroid.Parser.SummonerId;
 
 import java.util.List;
 
-public class RiotAPIClass extends Thread{
+public class RiotAPIClass{
     List<LeagueInfo> leagueInfo;
     Call<SummonerId> tmp;
     String name;
-    public void run() {
-        findSummonerInfo();
-
-    }
 
     public void findSummonerInfo(){
         Retrofit retrofit = new Retrofit.Builder()
