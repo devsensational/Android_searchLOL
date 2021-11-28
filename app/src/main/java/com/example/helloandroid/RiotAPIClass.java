@@ -4,7 +4,10 @@
 
 package com.example.helloandroid;
 
+
 import android.provider.ContactsContract;
+
+import androidx.annotation.NonNull;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,13 +19,24 @@ import com.example.helloandroid.Parser.LeagueInfo;
 import com.example.helloandroid.Parser.MatchInfo;
 import com.example.helloandroid.Parser.Spector;
 import com.example.helloandroid.Parser.SummonerId;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
-public class RiotAPIClass{
+public class RiotAPIClass extends Thread{
     List<LeagueInfo> leagueInfo;
     Call<SummonerId> tmp;
     String name;
+    private DatabaseReference mDatabaseRef;
+
+    public void run() {
+        findSummonerInfo();
+
+    }
 
     public void findSummonerInfo(){
         Retrofit retrofit = new Retrofit.Builder()
@@ -40,9 +54,11 @@ public class RiotAPIClass{
                         @Override
                         public void onResponse(Call<List<LeagueInfo>> call, Response<List<LeagueInfo>> response) {
                             if (response.isSuccessful()) {
+                                mDatabaseRef = FirebaseDatabase.getInstance().getReference();
                                 leagueInfo = response.body();
                                 DataHandlerObject.leagueInfos = leagueInfo;
                                 findSpectorInfo(DataHandlerObject.summonerIds.getId());
+                                findMatchList(DataHandlerObject.summonerIds.getPuuid());
                             }
                         }
 
@@ -75,6 +91,23 @@ public class RiotAPIClass{
                 System.out.println(response.code());
                 if(response.isSuccessful()){
                     DataHandlerObject.matchLists = response.body();
+                    String[] matchList = new String[20];
+                    //String[] gId = new String[20];
+                    mDatabaseRef.child("matchList").child(DataHandlerObject.summonerIds.getName()).setValue(DataHandlerObject.matchLists);
+                    mDatabaseRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for(int i=0;i<20;i++){
+                                matchList[i] = snapshot.child("matchList").child(DataHandlerObject.summonerIds.getName()).child(Integer.toString(i)).getValue().toString();
+                                findMatchInfo(matchList[i]);
+                                //gId[i] = ss[i].substring(3);
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
             }
 
@@ -96,6 +129,8 @@ public class RiotAPIClass{
             public void onResponse(Call<MatchInfo> call, Response<MatchInfo> response) {
                 if(response.isSuccessful()){
                     DataHandlerObject.matchInfos = response.body();
+                    //최근전적 소환사들 정보
+                    mDatabaseRef.child("matchList").child(DataHandlerObject.summonerIds.getName()).child(matchId).setValue(DataHandlerObject.matchInfos.getInfo().getParticipant());
                 }
             }
             @Override
@@ -117,6 +152,7 @@ public class RiotAPIClass{
                 System.out.println(response.code());
                 if(response.isSuccessful()){
                     DataHandlerObject.spector = response.body();
+                    mDatabaseRef.child("SpectorInfo").child(DataHandlerObject.summonerIds.getName()).setValue(DataHandlerObject.spector.getParticipants());
                 }
             }
             @Override
@@ -129,6 +165,5 @@ public class RiotAPIClass{
     public void setSummonerName(String name){
         this.name = name;
     }
-
 }
 
