@@ -27,16 +27,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
-public class RiotAPIClass extends Thread{
+public class RiotAPIClass {
     List<LeagueInfo> leagueInfo;
     Call<SummonerId> tmp;
     String name;
     private DatabaseReference mDatabaseRef;
-
-    public void run() {
-        findSummonerInfo();
-
-    }
 
     public void findSummonerInfo(){
         Retrofit retrofit = new Retrofit.Builder()
@@ -140,7 +135,8 @@ public class RiotAPIClass extends Thread{
         });
     }
 
-    protected void findSpectorInfo(String id){
+    public void findSpectorInfo(String id){
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://kr.api.riotgames.com")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -159,6 +155,43 @@ public class RiotAPIClass extends Thread{
             public void onFailure(Call<Spector> call, Throwable t) {
                 System.out.println(t);
 
+            }
+        });
+    }
+
+    public void findSpectorAPI(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://kr.api.riotgames.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+        retrofitAPI.getSummerId(name, MainActivity.apiKey).enqueue(new Callback<SummonerId>() {
+            @Override
+            public void onResponse(Call<SummonerId> call, Response<SummonerId> response) {
+                if (response.isSuccessful()) {
+                    DataHandlerObject.summonerIds = response.body();
+                    retrofitAPI.getLeagueInfo(DataHandlerObject.summonerIds.getId(),MainActivity.apiKey).enqueue(new Callback<List<LeagueInfo>>() {
+                        @Override
+                        public void onResponse(Call<List<LeagueInfo>> call, Response<List<LeagueInfo>> response) {
+                            if (response.isSuccessful()) {
+                                leagueInfo = response.body();
+                                DataHandlerObject.leagueInfos = leagueInfo;
+                                findSpectorInfo(DataHandlerObject.summonerIds.getId());
+                                System.out.println("불러오기 완료");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<LeagueInfo>> call, Throwable t) {
+
+                            System.out.println(t.toString());
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SummonerId> call, Throwable t) {
             }
         });
     }

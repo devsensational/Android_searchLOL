@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.helloandroid.DataHandlerObject;
+import com.example.helloandroid.InGameAPIThread;
 import com.example.helloandroid.R;
 
 import java.util.ArrayList;
@@ -107,8 +108,6 @@ public class SearchFragment extends Fragment {
         inGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 Navigation.findNavController(inflateView).navigate(R.id.action_searchFragment_to_inGameFragment);
             }
         });

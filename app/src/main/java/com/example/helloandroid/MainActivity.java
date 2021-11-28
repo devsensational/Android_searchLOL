@@ -20,7 +20,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    final static String apiKey = "RGAPI-d9babf10-fb50-4b39-bf8e-bee271691f97"; //API 키
+    public final static String apiKey = "RGAPI-d9babf10-fb50-4b39-bf8e-bee271691f97"; //API 키
     //public static DataHandelObject dataHandelObject;
 
     @Override
