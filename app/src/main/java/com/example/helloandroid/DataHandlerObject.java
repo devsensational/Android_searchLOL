@@ -22,6 +22,7 @@ public class DataHandlerObject {
     public static MatchInfo matchInfos; //매치 정보
     public static Spector spector; //현재 진행중인 게임 정보
     public static List<Icon> icons;
+    public static String summonerName;
 
     //Merge
 }

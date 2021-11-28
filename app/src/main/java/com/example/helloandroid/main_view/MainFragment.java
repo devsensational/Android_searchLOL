@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.helloandroid.DataHandlerObject;
 import com.example.helloandroid.LoginActivity;
 import com.example.helloandroid.RegisterActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -13,7 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.helloandroid.R;
 
@@ -54,16 +57,24 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View inflateView = inflater.inflate(R.layout.fragment_main, container, false);;
-        Button searchButton = inflateView.findViewById(R.id.main_fragment_search_button);
+
+
+        View inflateView = inflater.inflate(R.layout.fragment_main, container, false);
+        Button searchButton = inflateView.findViewById(R.id.main_fragment_search_button); //전적검색 버튼
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                EditText editText;
+                View v = inflater.inflate(R.layout.fragment_main,container,false);
+                editText = v.findViewById(R.id.editTextTextPersonName4);
+                DataHandlerObject.summonerName = editText.getText().toString();
                 Navigation.findNavController(inflateView).navigate(R.id.action_mainFragment_to_searchFragment);
+                System.out.println("TEST : " + DataHandlerObject.summonerName);
+                System.out.println("TEST : " + editText.getText().toString());
             }
         });
 
-        Button Login_Botton = inflateView.findViewById(R.id.login_Botton);
+        Button Login_Botton = inflateView.findViewById(R.id.login_Botton); // 로그인 버튼
         Login_Botton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -71,7 +82,7 @@ public class MainFragment extends Fragment {
             }
         });
 
-        Button Register_Botton = inflateView.findViewById(R.id.register_Botton);
+        Button Register_Botton = inflateView.findViewById(R.id.register_Botton); //회원가입 버튼
         Register_Botton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){

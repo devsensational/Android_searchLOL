@@ -45,8 +45,6 @@ public class InGameFragment extends Fragment {
                 setBlueOrRed(true);
                 setChampionImageUrl("https://ddragon.leagueoflegends.com/cdn/10.6.1/img/champion/Shyvana.png");
                 setNickname("닉네임칸");
-                setRune1ImageUrl("https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/PressTheAttack/PressTheAttack.png");
-                setRune2ImageUrl("https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7200_Domination.png");
                 setSpell1ImageUrl("https://ddragon.leagueoflegends.com/cdn/10.6.1/img/spell/SummonerBoost.png");
                 setSpell2ImageUrl("https://ddragon.leagueoflegends.com/cdn/10.6.1/img/spell/SummonerBoost.png");
 
@@ -57,13 +55,11 @@ public class InGameFragment extends Fragment {
             }});
         }
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 5; i < 10; i++) {
             inGameDataObjects.add(new InGameDataObject() {{
                 setBlueOrRed(false);
                 setChampionImageUrl("https://ddragon.leagueoflegends.com/cdn/10.6.1/img/champion/Shyvana.png");
                 setNickname("닉네임칸");
-                setRune1ImageUrl("https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/PressTheAttack/PressTheAttack.png");
-                setRune2ImageUrl("https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7200_Domination.png");
                 setSpell1ImageUrl("https://ddragon.leagueoflegends.com/cdn/10.6.1/img/spell/SummonerBoost.png");
                 setSpell2ImageUrl("https://ddragon.leagueoflegends.com/cdn/10.6.1/img/spell/SummonerBoost.png");
 

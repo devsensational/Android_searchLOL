@@ -60,9 +60,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="27dp"
         android:layout_marginLeft="27dp"
+        android:editable="true"
         android:ems="10"
+        android:hint="소환사 이름"
         android:inputType="textPersonName"
-        android:text="소환사 이름"
+        android:selectAllOnFocus="false"
         app:layout_constraintBaseline_toBaselineOf="@+id/main_fragment_search_button"
         app:layout_constraintEnd_toStartOf="@+id/main_fragment_search_button"
         app:layout_constraintStart_toStartOf="parent" />
