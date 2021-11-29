@@ -24,6 +24,8 @@ import com.example.helloandroid.RetrofitAPI;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.example.helloandroid.Parser.championInfo;
+import com.example.helloandroid.Parser.spellInfo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -96,31 +98,16 @@ public class InGameFragment extends Fragment {
 
                                                 List<SpectorParticipant> sp = DataHandlerObject.spector.getParticipants();
                                                 List<InGameDataObject> inGameDataObjects = new ArrayList<>();
-                                                for (int i = 0; i < 5; i++) {
+                                                championInfo ci = new championInfo();
+                                                spellInfo si = new spellInfo();
+                                                for (int i = 0; i < 10; i++) {
                                                     int finalI = i;
                                                     inGameDataObjects.add(new InGameDataObject() {{
-                                                        setBlueOrRed(true);
-                                                        //setChampionImageUrl("https://ddragon.leagueoflegends.com/cdn/"+ version +"/img/champion/"+ sp.get(finalI).getChampionId() +".png");
-                                                        //setChampionImageUrl("https://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/Poppy.png");
+                                                        setBlueOrRed(finalI < 5 ? true : false);
+                                                        setChampionImageUrl("https://ddragon.leagueoflegends.com/cdn/"+ version +"/img/champion/"+ ci.cif(sp.get(finalI).getChampionId()) +".png");
                                                         setNickname(sp.get(finalI).getSummonerName());
-                                                        setSpell1ImageUrl("https://ddragon.leagueoflegends.com/cdn/"+ version +"/img/spell/"+ sp.get(finalI).getPerks().getPerkIds().get(0)+".png");
-                                                        setSpell2ImageUrl("https://ddragon.leagueoflegends.com/cdn/"+ version +"/img/spell/"+ sp.get(finalI).getPerks().getPerkIds().get(1)+".png");
-
-                                                        setTearText("D3");
-                                                        setWinRate("55%");
-                                                        setTearImageUrl("https://opgg-com-image.akamaized.net/attach/images/20190916020813.596917.jpg");
-
-                                                    }});
-                                                }
-
-                                                for (int i = 5; i < 10; i++) {
-                                                    int finalI = i;
-                                                    inGameDataObjects.add(new InGameDataObject() {{
-                                                        setBlueOrRed(false);
-                                                        setChampionImageUrl("https://ddragon.leagueoflegends.com/cdn/"+ version +"/img/champion/"+ sp.get(finalI).getChampionId() +".png");
-                                                        setNickname(sp.get(finalI).getSummonerName());
-                                                        setSpell1ImageUrl("https://ddragon.leagueoflegends.com/cdn/"+ version +"/img/spell/"+ sp.get(finalI).getPerks().getPerkIds().get(0)+".png");
-                                                        setSpell2ImageUrl("https://ddragon.leagueoflegends.com/cdn/"+ version +"/img/spell/"+ sp.get(finalI).getPerks().getPerkIds().get(1)+".png");
+                                                        setSpell1ImageUrl("https://ddragon.leagueoflegends.com/cdn/"+ version +"/img/spell/"+ si.sif(sp.get(finalI).getSpell1Id())+ ".png");
+                                                        setSpell2ImageUrl("https://ddragon.leagueoflegends.com/cdn/"+ version +"/img/spell/"+ si.sif(sp.get(finalI).getSpell2Id())+".png");
 
                                                         setTearText("D3");
                                                         setWinRate("55%");

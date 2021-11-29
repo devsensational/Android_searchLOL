@@ -30,6 +30,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.example.helloandroid.Parser.spellInfo;
+import com.example.helloandroid.Parser.championInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,7 +96,7 @@ public class SearchFragment extends Fragment {
                                                     if (response.code() == 200) {
 
                                                         System.out.println("TEST : 매치리스트 서치 성공");
-                                                        Glide.with(getContext()).load("https://ddragon.leagueoflegends.com/cdn/"+ gameVersion + "/img/profileicon/"+ DataHandlerObject.summonerIds.getProfileIconId()+ ".png")
+                                                        Glide.with(getContext()).load("https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/profileicon/" + DataHandlerObject.summonerIds.getProfileIconId() + ".png")
                                                                 .into(userIconView); //유저 아이콘
                                                         Glide.with(getContext()).load("https://opgg-com-image.akamaized.net/attach/images/20190916020813.596917.jpg")
                                                                 .into(rankIconView); //랭크 아이콘 이게 jpg로 바뀌어야 함
@@ -103,42 +105,45 @@ public class SearchFragment extends Fragment {
                                                         searchRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                                                         List<SearchItemObject> searchItemObjectList = new ArrayList<>();
                                                         for (int i = 0; i < 20; i++) {
-                                                            retrofitAPI.getMatchInfo(DataHandlerObject.matchLists.get(i),MainActivity.apiKey).enqueue(new Callback<MatchInfo>() {
+                                                            retrofitAPI.getMatchInfo(DataHandlerObject.matchLists.get(i), MainActivity.apiKey).enqueue(new Callback<MatchInfo>() {
                                                                 @Override
                                                                 public void onResponse(Call<MatchInfo> call, Response<MatchInfo> response) {
-                                                                    if(response.isSuccessful()){
-                                                                        if(response.code() == 200){
+                                                                    if (response.isSuccessful()) {
+                                                                        if (response.code() == 200) {
                                                                             System.out.println("TEST : 매치인포");
                                                                             DataHandlerObject.matchInfos = response.body();
+                                                                            spellInfo si = new spellInfo();
+                                                                            championInfo ci = new championInfo();
                                                                             for (int j = 0; j < 10; j++) {
                                                                                 System.out.println("TEST : Participants 찾기");
                                                                                 Participant pa = DataHandlerObject.matchInfos.getInfo().getParticipant().get(j);
-                                                                                if(pa.getSummonerName().equals(DataHandlerObject.summonerName)){
+                                                                                if (pa.getSummonerName().equals(DataHandlerObject.summonerName)) {
                                                                                     System.out.println("TEST : Participants 찾았다!!!");
                                                                                     searchItemObjectList.add(new SearchItemObject() {{
                                                                                         setWin(pa.getWin());
                                                                                         setKda(pa.getKills().toString() + "/" + pa.getDeaths().toString() + "/" + pa.getAssists().toString());
-                                                                                        int hour = pa.getTimePlayed()/60;
-                                                                                        int min = pa.getTimePlayed()%60;
+                                                                                        int hour = pa.getTimePlayed() / 60;
+                                                                                        int min = pa.getTimePlayed() % 60;
                                                                                         //setGameTime(Integer.toString(hour) + ":" + Integer.toString(min));
-                                                                                        setChampion("https://ddragon.leagueoflegends.com/cdn/"+gameVersion+"/img/champion/Shyvana.png"); //챔피언 아이콘
+                                                                                        setChampion("https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/champion/"+ ci.cif(pa.getChampionId()) +".png"); //챔피언 아이콘
 
                                                                                         setItem(new String[]{
-                                                                                                "https://ddragon.leagueoflegends.com/cdn/"+ gameVersion +"/img/item/"+pa.getItem0()+".png",
-                                                                                                "https://ddragon.leagueoflegends.com/cdn/"+ gameVersion +"/img/item/"+pa.getItem1()+".png",
-                                                                                                "https://ddragon.leagueoflegends.com/cdn/"+ gameVersion +"/img/item/"+pa.getItem2()+".png",
-                                                                                                "https://ddragon.leagueoflegends.com/cdn/"+ gameVersion +"/img/item/"+pa.getItem3()+".png",
-                                                                                                "https://ddragon.leagueoflegends.com/cdn/"+ gameVersion +"/img/item/"+pa.getItem4()+".png",
-                                                                                                "https://ddragon.leagueoflegends.com/cdn/"+ gameVersion +"/img/item/"+pa.getItem5()+".png"
+                                                                                                "https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/item/" + pa.getItem0() + ".png",
+                                                                                                "https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/item/" + pa.getItem1() + ".png",
+                                                                                                "https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/item/" + pa.getItem2() + ".png",
+                                                                                                "https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/item/" + pa.getItem3() + ".png",
+                                                                                                "https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/item/" + pa.getItem4() + ".png",
+                                                                                                "https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/item/" + pa.getItem5() + ".png"
                                                                                         });
-                                                                                        setSpell(new String[]{"https://ddragon.leagueoflegends.com/cdn/"+gameVersion+"/img/spell/SummonerBoost.png", //스펠
-                                                                                                "https://ddragon.leagueoflegends.com/cdn/"+ gameVersion +"/img/spell/SummonerBoost.png"});
+                                                                                        System.out.println("SPELL : " + pa.getSummoner2Id() + " + " + si.sif(pa.getSummoner2Id()));
+                                                                                        setSpell(new String[]{"https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/spell/"+ si.sif(pa.getSummoner1Id()) +".png", //스펠
+                                                                                                "https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/spell/"+  si.sif(pa.getSummoner2Id()) +".png"});
 
                                                                                         setRunes(new String[]{
                                                                                                 "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/PressTheAttack/PressTheAttack.png", //룬
                                                                                                 "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7200_Domination.png"});
 
-                                                                                        setTotem("https://ddragon.leagueoflegends.com/cdn/"+ gameVersion +"/img/item/"+pa.getItem6()+".png");
+                                                                                        setTotem("https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/item/" + pa.getItem6() + ".png");
 
                                                                                     }});
                                                                                     /*
@@ -166,6 +171,7 @@ public class SearchFragment extends Fragment {
                                                                         }
                                                                     }
                                                                 }
+
                                                                 @Override
                                                                 public void onFailure(Call<MatchInfo> call, Throwable t) {
 
