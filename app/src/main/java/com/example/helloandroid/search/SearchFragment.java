@@ -224,14 +224,7 @@ public class SearchFragment extends Fragment {
         });
 
 
-        android.widget.Button predictionButton = inflateView.findViewById(R.id.prediction_button);// 승리 예측 버튼
-        predictionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                Navigation.findNavController(inflateView).navigate(R.id.action_searchFragment_to_predictionFragment);
-            }
-        });
 
         android.widget.Button inGameButton = inflateView.findViewById(R.id.ingame_button); // 인게임 버튼
         inGameButton.setOnClickListener(new View.OnClickListener() {
