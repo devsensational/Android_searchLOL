@@ -108,7 +108,8 @@ public class InGameFragment extends Fragment {
                                                         setNickname(sp.get(finalI).getSummonerName());
                                                         setSpell1ImageUrl("https://ddragon.leagueoflegends.com/cdn/"+ version +"/img/spell/"+ si.sif(sp.get(finalI).getSpell1Id())+ ".png");
                                                         setSpell2ImageUrl("https://ddragon.leagueoflegends.com/cdn/"+ version +"/img/spell/"+ si.sif(sp.get(finalI).getSpell2Id())+".png");
-
+                                                        setRune1ImageUrl("");
+                                                        setRune2ImageUrl("");
                                                         Retrofit retrofit = new Retrofit.Builder()
                                                                 .baseUrl("https://kr.api.riotgames.com")
                                                                 .addConverterFactory(GsonConverterFactory.create())

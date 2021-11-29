@@ -24,7 +24,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             />
-        27<ImageView
+        <ImageView
         android:id="@+id/in_game_spell2"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -42,7 +42,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             />
-        41        <ImageView
+        <ImageView
         android:id="@+id/in_game_rune2"
         android:layout_width="50dp"
         android:layout_height="50dp"
