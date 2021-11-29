@@ -78,7 +78,7 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
         }
         holder.winTextView.setText(winText);
         holder.containerLayout.setBackgroundColor(Color.parseColor(color));
-        holder.gameTimeTextView.setText(searchItemObject.getGameTime());
+        //holder.gameTimeTextView.setText(searchItemObject.getGameTime());
         Glide.with(holder.championImageView.getContext()).load(searchItemObject.getChampion())
                 .into(holder.championImageView);
         Glide.with(holder.itemImageView.getContext()).load(searchItemObject.getItem()[0])
