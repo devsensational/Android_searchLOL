@@ -16,6 +16,7 @@ import com.example.helloandroid.DataHandlerObject;
 import com.example.helloandroid.MainActivity;
 import com.example.helloandroid.Parser.LeagueInfo;
 import com.example.helloandroid.Parser.Participant;
+import com.example.helloandroid.Parser.RankParser;
 import com.example.helloandroid.Parser.Spector;
 import com.example.helloandroid.Parser.SpectorParticipant;
 import com.example.helloandroid.Parser.SummonerId;
@@ -102,6 +103,7 @@ public class InGameFragment extends Fragment {
                                                 championInfo ci = new championInfo();
                                                 spellInfo si = new spellInfo();
                                                 runeInfo ri = new runeInfo();
+                                                RankParser rp = new RankParser();
                                                 for (int i = 0; i < 10; i++) {
                                                     int finalI = i;
                                                     inGameDataObjects.add(new InGameDataObject() {{
@@ -130,16 +132,19 @@ public class InGameFragment extends Fragment {
                                                                                 if(response.code() == 200){
                                                                                     List<LeagueInfo> lf = response.body();
                                                                                     int indexNum = 0;
+
                                                                                     for(int j = 0 ; j < lf.size(); j++) {
                                                                                         if (lf.get(j).getQueueType().equals("RANKED_SOLO_5x5")) {
                                                                                             indexNum = j;
                                                                                         }
-                                                                                        setTearText(lf.get(indexNum).getTier() + " " + lf.get(indexNum).getRank());
-                                                                                        int win = lf.get(indexNum).getWins();
-                                                                                        int lose = lf.get(indexNum).getLosses();
-                                                                                        float avg = (float)(win)/((float)win+(float)lose) * 100;
-                                                                                        setWinRate("승률 : " + String.format("%.2f",avg) + "%");
-                                                                                        setTearImageUrl("https://opgg-com-image.akamaized.net/attach/images/20190916020813.596917.jpg");
+                                                                                        //setTearText(lf.get(indexNum).getTier() + " " + lf.get(indexNum).getRank());
+                                                                                        //int win = lf.get(indexNum).getWins();
+                                                                                        //int lose = lf.get(indexNum).getLosses();
+                                                                                        //float avg = (float)(win)/((float)win+(float)lose) * 100;
+                                                                                        //setWinRate("승률 : " + String.format("%.2f",avg) + "%");
+                                                                                        //setTearImageUrl(rp.rankParser(lf.get(indexNum).getTier()));
+
+
                                                                                     }
                                                                                 }else{
                                                                                     System.out.println("인게임 불러오기 실패");
@@ -160,13 +165,12 @@ public class InGameFragment extends Fragment {
                                                             public void onFailure(Call<SummonerId> call, Throwable t) {
                                                             }
                                                         });
-
-                                                        inGameRecyclerView.setAdapter(inGameRecyclerAdapter);
-                                                        inGameRecyclerAdapter.setInGameDataObjectList(inGameDataObjects);
-                                                        inGameRecyclerView.addItemDecoration(dividerItemDecoration);
                                                     }});
                                                 }
 
+                                                inGameRecyclerView.setAdapter(inGameRecyclerAdapter);
+                                                inGameRecyclerAdapter.setInGameDataObjectList(inGameDataObjects);
+                                                inGameRecyclerView.addItemDecoration(dividerItemDecoration);
 
                                             }else{
                                                 //게임 중 아님

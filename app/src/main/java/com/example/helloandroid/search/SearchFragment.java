@@ -25,6 +25,7 @@ import com.example.helloandroid.MainActivity;
 import com.example.helloandroid.Parser.LeagueInfo;
 import com.example.helloandroid.Parser.MatchInfo;
 import com.example.helloandroid.Parser.Participant;
+import com.example.helloandroid.Parser.RankParser;
 import com.example.helloandroid.Parser.SummonerId;
 import com.example.helloandroid.R;
 import com.example.helloandroid.RetrofitAPI;
@@ -91,6 +92,7 @@ public class SearchFragment extends Fragment {
                                 if (response.isSuccessful()) {
                                     if (response.code() == 200) { //리그 인포 서치 성공
                                         int indexNum = 0;
+                                        RankParser rp = new RankParser();
                                         System.out.println("TEST : 리그인포 서치 성공");
                                         DataHandlerObject.leagueInfos = response.body();
                                         System.out.println("TEST!! : 리그인포 사이즈 = " + DataHandlerObject.leagueInfos.size());
@@ -103,6 +105,9 @@ public class SearchFragment extends Fragment {
                                         rType.setText(DataHandlerObject.leagueInfos.get(indexNum).getTier()
                                         + " "+ DataHandlerObject.leagueInfos.get(indexNum).getRank());
                                         rPoint.setText(DataHandlerObject.leagueInfos.get(indexNum).getLeaguePoints().toString());
+
+                                        Glide.with(getContext()).load(rp.rankParser(DataHandlerObject.leagueInfos.get(indexNum).getTier()))
+                                                .into(rankIconView); //랭크 아이콘 이게 jpg로 바뀌어야 함
                                         int win = DataHandlerObject.leagueInfos.get(indexNum).getWins();
                                         int lose = DataHandlerObject.leagueInfos.get(indexNum).getLosses();
                                         float avg = ((float)(win)/((float)win+(float)lose)) * 100;
@@ -122,8 +127,6 @@ public class SearchFragment extends Fragment {
                                                         System.out.println("TEST : 매치리스트 서치 성공");
                                                         Glide.with(getContext()).load("https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/profileicon/" + DataHandlerObject.summonerIds.getProfileIconId() + ".png")
                                                                 .into(userIconView); //유저 아이콘
-                                                        Glide.with(getContext()).load("https://opgg-com-image.akamaized.net/attach/images/20190916020813.596917.jpg")
-                                                                .into(rankIconView); //랭크 아이콘 이게 jpg로 바뀌어야 함
                                                         RecyclerView searchRecyclerView = inflateView.findViewById(R.id.searchRecyclerView);
                                                         SearchRecyclerAdapter recyclerAdapter = new SearchRecyclerAdapter();
                                                         searchRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
