@@ -39,7 +39,7 @@ public class SpectorParticipant {
     private List<Object> gameCustomizationObjects = null;
     @SerializedName("perks")
     @Expose
-    private Perks perks;
+    private SpectorPerks perks;
 
     public Integer getTeamId() {
         return teamId;
@@ -113,11 +113,11 @@ public class SpectorParticipant {
         this.gameCustomizationObjects = gameCustomizationObjects;
     }
 
-    public Perks getPerks() {
+    public SpectorPerks getPerks() {
         return perks;
     }
 
-    public void setPerks(Perks perks) {
+    public void setPerks(SpectorPerks perks) {
         this.perks = perks;
     }
 

@@ -19,6 +19,7 @@ import com.example.helloandroid.Parser.Participant;
 import com.example.helloandroid.Parser.Spector;
 import com.example.helloandroid.Parser.SpectorParticipant;
 import com.example.helloandroid.Parser.SummonerId;
+import com.example.helloandroid.Parser.runeInfo;
 import com.example.helloandroid.R;
 import com.example.helloandroid.RetrofitAPI;
 import com.google.firebase.database.DataSnapshot;
@@ -100,6 +101,7 @@ public class InGameFragment extends Fragment {
                                                 List<InGameDataObject> inGameDataObjects = new ArrayList<>();
                                                 championInfo ci = new championInfo();
                                                 spellInfo si = new spellInfo();
+                                                runeInfo ri = new runeInfo();
                                                 for (int i = 0; i < 10; i++) {
                                                     int finalI = i;
                                                     inGameDataObjects.add(new InGameDataObject() {{
@@ -108,8 +110,9 @@ public class InGameFragment extends Fragment {
                                                         setNickname(sp.get(finalI).getSummonerName());
                                                         setSpell1ImageUrl("https://ddragon.leagueoflegends.com/cdn/"+ version +"/img/spell/"+ si.sif(sp.get(finalI).getSpell1Id())+ ".png");
                                                         setSpell2ImageUrl("https://ddragon.leagueoflegends.com/cdn/"+ version +"/img/spell/"+ si.sif(sp.get(finalI).getSpell2Id())+".png");
-                                                        setRune1ImageUrl("");
-                                                        setRune2ImageUrl("");
+                                                        System.out.println("룬테스트 : " + sp.get(finalI).getPerks().getPerkIds().get(0) + " : " + sp.get(finalI).getPerks().getPerkSubStyle());
+                                                        setRune1ImageUrl("https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/" + ri.rif(sp.get(finalI).getPerks().getPerkIds().get(0)) +".png");
+                                                        setRune2ImageUrl("https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/" + ri.rif(sp.get(finalI).getPerks().getPerkSubStyle())+ ".png");
                                                         Retrofit retrofit = new Retrofit.Builder()
                                                                 .baseUrl("https://kr.api.riotgames.com")
                                                                 .addConverterFactory(GsonConverterFactory.create())
