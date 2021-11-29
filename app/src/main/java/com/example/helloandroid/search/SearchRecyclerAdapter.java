@@ -199,7 +199,6 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
             containerLayout = itemView.findViewById(R.id.search_item_linear_layout);
             championImageView = itemView.findViewById(R.id.championImageView);
             winTextView = itemView.findViewById(R.id.win_textView);
-            gameTimeTextView = itemView.findViewById(R.id.gametime_textView);
             kdaTextView = itemView.findViewById(R.id.kda_textView);
             spellImageView = itemView.findViewById(R.id.spell_imageView);
             spell2ImageView = itemView.findViewById(R.id.spell2_imageView);
