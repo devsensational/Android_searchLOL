@@ -173,7 +173,7 @@ public class championInfo {
                 champion = "Orianna";
                 break;
             case 62:
-                champion = "Wukong";
+                champion = "MonkeyKing";
                 break;
             case 63:
                 champion = "Brand";

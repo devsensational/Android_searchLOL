@@ -153,12 +153,12 @@ public class SearchFragment extends Fragment {
                                                                                         setChampion("https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/champion/"+ ci.cif(pa.getChampionId()) +".png"); //챔피언 아이콘
 
                                                                                         setItem(new String[]{
-                                                                                                "https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/item/" + pa.getItem0() + ".png",
-                                                                                                "https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/item/" + pa.getItem1() + ".png",
-                                                                                                "https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/item/" + pa.getItem2() + ".png",
-                                                                                                "https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/item/" + pa.getItem3() + ".png",
-                                                                                                "https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/item/" + pa.getItem4() + ".png",
-                                                                                                "https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/item/" + pa.getItem5() + ".png"
+                                                                                                pa.getItem0() == 0 ? "" : "https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/item/" + pa.getItem0() + ".png",
+                                                                                                pa.getItem0() == 1 ? "" : "https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/item/" + pa.getItem1() + ".png",
+                                                                                                pa.getItem0() == 2 ? "" : "https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/item/" + pa.getItem2() + ".png",
+                                                                                                pa.getItem0() == 3 ? "" : "https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/item/" + pa.getItem3() + ".png",
+                                                                                                pa.getItem0() == 4 ? "" : "https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/item/" + pa.getItem4() + ".png",
+                                                                                                pa.getItem0() == 5 ? "" : "https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/item/" + pa.getItem5() + ".png"
                                                                                         });
                                                                                         System.out.println("SPELL : " + pa.getSummoner2Id() + " + " + si.sif(pa.getSummoner2Id()));
                                                                                         setSpell(new String[]{"https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/spell/"+ si.sif(pa.getSummoner1Id()) +".png", //스펠

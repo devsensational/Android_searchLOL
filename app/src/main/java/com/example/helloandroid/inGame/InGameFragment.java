@@ -122,26 +122,25 @@ public class InGameFragment extends Fragment {
                                                             @Override
                                                             public void onResponse(Call<SummonerId> call, Response<SummonerId> response) {
                                                                 if (response.isSuccessful()) {
-                                                                    SummonerId summonerIds = response.body();
-
-                                                                    retrofitAPI.getLeagueInfo(summonerIds.getId(),MainActivity.apiKey).enqueue(new Callback<List<LeagueInfo>>() {
+                                                                    SummonerId sid = response.body();
+                                                                    retrofitAPI.getLeagueInfo(sid.getId(),MainActivity.apiKey).enqueue(new Callback<List<LeagueInfo>>() {
                                                                         @Override
                                                                         public void onResponse(Call<List<LeagueInfo>> call, Response<List<LeagueInfo>> response) {
                                                                             if (response.isSuccessful()) {
-                                                                                System.out.println("오류발생지점 : " + response.code());
                                                                                 if(response.code() == 200){
                                                                                     List<LeagueInfo> lf = response.body();
                                                                                     int indexNum = 0;
-                                                                                    for(int j = 0 ; j < lf.size(); j++){
-                                                                                        if(lf.get(j).getQueueType().equals("RANKED_SOLO_5x5"))
+                                                                                    for(int j = 0 ; j < lf.size(); j++) {
+                                                                                        if (lf.get(j).getQueueType().equals("RANKED_SOLO_5x5")) {
                                                                                             indexNum = j;
+                                                                                        }
+                                                                                        setTearText(lf.get(indexNum).getTier() + " " + lf.get(indexNum).getRank());
+                                                                                        int win = lf.get(indexNum).getWins();
+                                                                                        int lose = lf.get(indexNum).getLosses();
+                                                                                        float avg = (float)(win)/((float)win+(float)lose) * 100;
+                                                                                        setWinRate("승률 : " + String.format("%.2f",avg) + "%");
+                                                                                        setTearImageUrl("https://opgg-com-image.akamaized.net/attach/images/20190916020813.596917.jpg");
                                                                                     }
-                                                                                    setTearText(lf.get(indexNum).getTier() + " " + lf.get(indexNum).getRank());
-                                                                                    int win = lf.get(indexNum).getWins();
-                                                                                    int lose = lf.get(indexNum).getLosses();
-                                                                                    float avg = (float)(win)/((float)win+(float)lose) * 100;
-                                                                                    setWinRate("승률 : " + String.format("%.2f",avg) + "%");
-                                                                                    setTearImageUrl("https://opgg-com-image.akamaized.net/attach/images/20190916020813.596917.jpg");
                                                                                 }else{
                                                                                     System.out.println("인게임 불러오기 실패");
                                                                                 }
@@ -151,7 +150,7 @@ public class InGameFragment extends Fragment {
                                                                         @Override
                                                                         public void onFailure(Call<List<LeagueInfo>> call, Throwable t) {
 
-                                                                            System.out.println(t.toString());
+                                                                            System.out.println("실패  : " + t.toString());
                                                                         }
                                                                     });
                                                                 }
@@ -162,13 +161,13 @@ public class InGameFragment extends Fragment {
                                                             }
                                                         });
 
+                                                        inGameRecyclerView.setAdapter(inGameRecyclerAdapter);
+                                                        inGameRecyclerAdapter.setInGameDataObjectList(inGameDataObjects);
+                                                        inGameRecyclerView.addItemDecoration(dividerItemDecoration);
                                                     }});
                                                 }
 
 
-                                                inGameRecyclerView.setAdapter(inGameRecyclerAdapter);
-                                                inGameRecyclerAdapter.setInGameDataObjectList(inGameDataObjects);
-                                                inGameRecyclerView.addItemDecoration(dividerItemDecoration);
                                             }else{
                                                 //게임 중 아님
                                             }
