@@ -65,6 +65,21 @@ public class runeInfo {
                 rune = "Inspiration/FirstStrike/FirstStrike";
                 break;
 
+            case 8000:  //정밀
+                rune = "7201_Precision";
+                break;
+            case 8100:  //지배
+                rune = "7200_Domination";
+                break;
+            case 8200:  //마법
+                rune = "7202_Sorcery";
+                break;
+            case 8300:  //영감
+                rune = "7203_Whimsy";
+                break;
+            case 8400:  //결의
+                rune = "7204_Resolve";
+                break;
         }
         return rune;
     }

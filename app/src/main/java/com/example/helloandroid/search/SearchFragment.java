@@ -34,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.example.helloandroid.Parser.spellInfo;
 import com.example.helloandroid.Parser.championInfo;
+import com.example.helloandroid.Parser.runeInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -137,6 +138,7 @@ public class SearchFragment extends Fragment {
                                                                             DataHandlerObject.matchInfos = response.body();
                                                                             spellInfo si = new spellInfo();
                                                                             championInfo ci = new championInfo();
+                                                                            runeInfo ri = new runeInfo();
                                                                             for (int j = 0; j < 10; j++) {
                                                                                 System.out.println("TEST : Participants 찾기");
                                                                                 Participant pa = DataHandlerObject.matchInfos.getInfo().getParticipant().get(j);
@@ -161,12 +163,15 @@ public class SearchFragment extends Fragment {
                                                                                         System.out.println("SPELL : " + pa.getSummoner2Id() + " + " + si.sif(pa.getSummoner2Id()));
                                                                                         setSpell(new String[]{"https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/spell/"+ si.sif(pa.getSummoner1Id()) +".png", //스펠
                                                                                                 "https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/spell/"+  si.sif(pa.getSummoner2Id()) +".png"});
-
+                                                                                        System.out.println("스펠!!! + " + ri.rif(pa.getPerks().getStyles().get(0).getSelections().get(0).getPerk()));
+                                                                                        System.out.println("스펠!!! + " + ri.rif(pa.getPerks().getStyles().get(1).getStyle()));
                                                                                         setRunes(new String[]{
-                                                                                                "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/PressTheAttack/PressTheAttack.png", //룬
-                                                                                                "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7200_Domination.png"});
+                                                                                                "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/"
+                                                                                                        + ri.rif(pa.getPerks().getStyles().get(0).getSelections().get(0).getPerk())+".png", //룬
+                                                                                                "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/"
+                                                                                                        +ri.rif(pa.getPerks().getStyles().get(1).getStyle())+".png"});
 
-                                                                                        setTotem("https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/item/" + pa.getItem6() + ".png");
+                                                                                        setTotem("https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/item/" + pa.getItem6() + ".png"); //토템
 
                                                                                     }});
 

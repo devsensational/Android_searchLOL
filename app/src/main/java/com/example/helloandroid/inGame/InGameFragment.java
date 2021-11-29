@@ -109,12 +109,58 @@ public class InGameFragment extends Fragment {
                                                         setSpell1ImageUrl("https://ddragon.leagueoflegends.com/cdn/"+ version +"/img/spell/"+ si.sif(sp.get(finalI).getSpell1Id())+ ".png");
                                                         setSpell2ImageUrl("https://ddragon.leagueoflegends.com/cdn/"+ version +"/img/spell/"+ si.sif(sp.get(finalI).getSpell2Id())+".png");
 
-                                                        setTearText("D3");
-                                                        setWinRate("55%");
-                                                        setTearImageUrl("https://opgg-com-image.akamaized.net/attach/images/20190916020813.596917.jpg");
+                                                        Retrofit retrofit = new Retrofit.Builder()
+                                                                .baseUrl("https://kr.api.riotgames.com")
+                                                                .addConverterFactory(GsonConverterFactory.create())
+                                                                .build();
+                                                        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+                                                        retrofitAPI.getSummerId(sp.get(finalI).getSummonerName(), MainActivity.apiKey).enqueue(new Callback<SummonerId>() {
+                                                            @Override
+                                                            public void onResponse(Call<SummonerId> call, Response<SummonerId> response) {
+                                                                if (response.isSuccessful()) {
+                                                                    SummonerId summonerIds = response.body();
+
+                                                                    retrofitAPI.getLeagueInfo(summonerIds.getId(),MainActivity.apiKey).enqueue(new Callback<List<LeagueInfo>>() {
+                                                                        @Override
+                                                                        public void onResponse(Call<List<LeagueInfo>> call, Response<List<LeagueInfo>> response) {
+                                                                            if (response.isSuccessful()) {
+                                                                                System.out.println("오류발생지점 : " + response.code());
+                                                                                if(response.code() == 200){
+                                                                                    List<LeagueInfo> lf = response.body();
+                                                                                    int indexNum = 0;
+                                                                                    for(int j = 0 ; j < lf.size(); j++){
+                                                                                        if(lf.get(j).getQueueType().equals("RANKED_SOLO_5x5"))
+                                                                                            indexNum = j;
+                                                                                    }
+                                                                                    setTearText(lf.get(indexNum).getTier() + " " + lf.get(indexNum).getRank());
+                                                                                    int win = lf.get(indexNum).getWins();
+                                                                                    int lose = lf.get(indexNum).getLosses();
+                                                                                    float avg = (float)(win)/((float)win+(float)lose) * 100;
+                                                                                    setWinRate("승률 : " + String.format("%.2f",avg) + "%");
+                                                                                    setTearImageUrl("https://opgg-com-image.akamaized.net/attach/images/20190916020813.596917.jpg");
+                                                                                }else{
+                                                                                    System.out.println("인게임 불러오기 실패");
+                                                                                }
+                                                                            }
+                                                                        }
+
+                                                                        @Override
+                                                                        public void onFailure(Call<List<LeagueInfo>> call, Throwable t) {
+
+                                                                            System.out.println(t.toString());
+                                                                        }
+                                                                    });
+                                                                }
+                                                            }
+
+                                                            @Override
+                                                            public void onFailure(Call<SummonerId> call, Throwable t) {
+                                                            }
+                                                        });
 
                                                     }});
                                                 }
+
 
                                                 inGameRecyclerView.setAdapter(inGameRecyclerAdapter);
                                                 inGameRecyclerAdapter.setInGameDataObjectList(inGameDataObjects);

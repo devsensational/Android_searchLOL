@@ -8,6 +8,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class Participant {
 
+    @SerializedName("perks")
+    @Expose
+    private Perks perks;
     @SerializedName("assists")
     @Expose
     private Integer assists;
@@ -1151,5 +1154,14 @@ public class Participant {
 
     public void setWin(Boolean win) {
         this.win = win;
+    }
+
+
+    public Perks getPerks() {
+        return perks;
+    }
+
+    public void setPerks(Perks perks) {
+        this.perks = perks;
     }
 }
