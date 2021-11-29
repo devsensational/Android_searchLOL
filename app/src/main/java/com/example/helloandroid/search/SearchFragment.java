@@ -9,10 +9,12 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -63,6 +65,11 @@ public class SearchFragment extends Fragment {
         View inflateView = inflater.inflate(R.layout.fragment_search, container, false);
         ImageView userIconView = inflateView.findViewById(R.id.usericon_imageView);
         ImageView rankIconView = inflateView.findViewById(R.id.rankicon_imageView);
+        TextView sName = (TextView) inflateView.findViewById(R.id.nickname_textview);
+        TextView winRate = (TextView) inflateView.findViewById(R.id.winRate_textview);
+        TextView rPoint = (TextView) inflateView.findViewById(R.id.rankPoint_textview);
+        TextView rType = (TextView) inflateView.findViewById(R.id.ranktype_textview);
+        TextView sLevel = (TextView) inflateView.findViewById(R.id.sLevel_textview);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -82,7 +89,23 @@ public class SearchFragment extends Fragment {
                             public void onResponse(Call<List<LeagueInfo>> call, Response<List<LeagueInfo>> response) {
                                 if (response.isSuccessful()) {
                                     if (response.code() == 200) { //리그 인포 서치 성공
+                                        int indexNum = 0;
                                         System.out.println("TEST : 리그인포 서치 성공");
+                                        DataHandlerObject.leagueInfos = response.body();
+                                        System.out.println("TEST!! : 리그인포 사이즈 = " + DataHandlerObject.leagueInfos.size());
+                                        sName.setText(DataHandlerObject.summonerIds.getName());
+                                        for(int i = 0 ; i < DataHandlerObject.leagueInfos.size(); i++){
+                                            if(DataHandlerObject.leagueInfos.get(i).getQueueType().equals("RANKED_SOLO_5x5"))
+                                                indexNum = i;
+                                        }
+                                        sLevel.setText("레벨 : " + DataHandlerObject.summonerIds.getSummonerLevel().toString());
+                                        rType.setText(DataHandlerObject.leagueInfos.get(indexNum).getTier()
+                                        + " "+ DataHandlerObject.leagueInfos.get(indexNum).getRank());
+                                        rPoint.setText(DataHandlerObject.leagueInfos.get(indexNum).getLeaguePoints().toString());
+                                        int win = DataHandlerObject.leagueInfos.get(indexNum).getWins();
+                                        int lose = DataHandlerObject.leagueInfos.get(indexNum).getLosses();
+                                        float avg = ((float)(win)/((float)win+(float)lose)) * 100;
+                                        winRate.setText(Integer.toString(win) + "승 " + Integer.toString(lose) + "패 ("+ String.format("%.2f", avg)+"%)");
                                         Retrofit retrofit = new Retrofit.Builder()
                                                 .baseUrl("https://asia.api.riotgames.com")
                                                 .addConverterFactory(GsonConverterFactory.create())
@@ -146,22 +169,6 @@ public class SearchFragment extends Fragment {
                                                                                         setTotem("https://ddragon.leagueoflegends.com/cdn/" + gameVersion + "/img/item/" + pa.getItem6() + ".png");
 
                                                                                     }});
-                                                                                    /*
-                                                                                    searchItemObjectList.add(new SearchItemObject() {{
-                                                                                        setWin(false);
-                                                                                        setKda("5/5/5");
-                                                                                        setGameTime("30:00");
-                                                                                        setChampion("https://ddragon.leagueoflegends.com/cdn/10.6.1/img/champion/Shyvana.png");
-                                                                                        setItem(new String[]{"https://ddragon.leagueoflegends.com/cdn/10.6.1/img/item/3108.png",
-                                                                                                "https://ddragon.leagueoflegends.com/cdn/10.6.1/img/item/3108.png",
-                                                                                                "https://ddragon.leagueoflegends.com/cdn/10.6.1/img/item/3108.png",
-                                                                                                "https://ddragon.leagueoflegends.com/cdn/10.6.1/img/item/3108.png",
-                                                                                                "https://ddragon.leagueoflegends.com/cdn/10.6.1/img/item/3108.png",
-                                                                                                "https://ddragon.leagueoflegends.com/cdn/10.6.1/img/item/3108.png"
-                                                                                        });
-                                                                                    }});
-                                                                                    */
-
 
                                                                                     searchRecyclerView.setAdapter(recyclerAdapter);
                                                                                     searchRecyclerView.addItemDecoration(dividerItemDecoration);
