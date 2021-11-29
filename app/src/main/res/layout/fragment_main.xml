@@ -11,10 +11,10 @@
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="1dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/main_fragment_search_button"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -34,53 +34,191 @@
         android:id="@+id/login_Botton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="65dp"
-        android:layout_marginRight="65dp"
-        android:layout_marginBottom="124dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginRight="72dp"
+        android:layout_marginBottom="126dp"
         android:text="로그인"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.907"
-        app:layout_constraintStart_toEndOf="@+id/register_Botton" />
+        app:layout_constraintStart_toEndOf="@+id/register_Botton"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
     <Button
         android:id="@+id/register_Botton"
-        android:layout_width="98dp"
+        android:layout_width="0dp"
         android:layout_height="47dp"
         android:layout_marginStart="88dp"
         android:layout_marginLeft="88dp"
-        android:layout_marginBottom="124dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="65dp"
+        android:layout_marginRight="65dp"
         android:text="회원가입"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/login_Botton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+        tools:ignore="TouchTargetSizeCheck" />
 
-    <EditText
-        android:id="@+id/editTextTextPersonName4"
+    <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="27dp"
-        android:layout_marginLeft="27dp"
-        android:editable="true"
-        android:ems="10"
-        android:hint="소환사 이름"
-        android:inputType="textPersonName"
-        android:selectAllOnFocus="false"
-        app:layout_constraintBaseline_toBaselineOf="@+id/main_fragment_search_button"
-        app:layout_constraintEnd_toStartOf="@+id/main_fragment_search_button"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/main_fragment_search_button"
-        android:layout_width="137dp"
-        android:layout_height="43dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="487dp"
-        android:layout_weight="1"
-        android:text="검색 버튼"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="1dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/login_Botton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName4"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextTextPersonName4"
+                android:layout_width="217dp"
+                android:layout_height="wrap_content"
+                android:editable="true"
+                android:ems="10"
+                android:hint="소환사 이름"
+                android:inputType="textPersonName"
+                android:selectAllOnFocus="false"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/main_fragment_search_button"
+                android:layout_width="126dp"
+                android:layout_height="43dp"
+                android:layout_weight="1"
+                android:text="검색 버튼"
+                tools:ignore="TouchTargetSizeCheck" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/recent_search1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name"
+                tools:layout_editor_absoluteX="41dp"
+                tools:layout_editor_absoluteY="493dp" />
+
+            <EditText
+                android:id="@+id/recent_search2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name"
+                tools:layout_editor_absoluteX="41dp"
+                tools:layout_editor_absoluteY="493dp" />
+
+            <EditText
+                android:id="@+id/recent_search3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name"
+                tools:layout_editor_absoluteX="41dp"
+                tools:layout_editor_absoluteY="493dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="-115dp"
+            tools:layout_editor_absoluteY="456dp">
+
+            <EditText
+                android:id="@+id/recent_search4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name"
+                tools:layout_editor_absoluteX="41dp"
+                tools:layout_editor_absoluteY="493dp" />
+
+            <EditText
+                android:id="@+id/recent_search5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name"
+                tools:layout_editor_absoluteX="41dp"
+                tools:layout_editor_absoluteY="493dp" />
+
+            <EditText
+                android:id="@+id/recent_search6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name"
+                tools:layout_editor_absoluteX="41dp"
+                tools:layout_editor_absoluteY="493dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="-66dp"
+            tools:layout_editor_absoluteY="454dp">
+
+            <EditText
+                android:id="@+id/recent_search7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name"
+                tools:layout_editor_absoluteX="41dp"
+                tools:layout_editor_absoluteY="493dp" />
+
+            <EditText
+                android:id="@+id/recent_search8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name"
+                tools:layout_editor_absoluteX="41dp"
+                tools:layout_editor_absoluteY="493dp" />
+
+            <EditText
+                android:id="@+id/recent_search9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name"
+                tools:layout_editor_absoluteX="41dp"
+                tools:layout_editor_absoluteY="493dp" />
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
