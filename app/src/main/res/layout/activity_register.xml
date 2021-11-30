@@ -10,7 +10,7 @@
         android:id="@+id/textView7"
         android:layout_width="57dp"
         android:layout_height="22dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="36dp"
         android:background="#D6D1D1"
         android:gravity="center"
         android:text="ID"
@@ -18,19 +18,7 @@
         app:layout_constraintEnd_toStartOf="@+id/et_id"
         app:layout_constraintHorizontal_bias="0.372"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView22" />
-
-    <EditText
-        android:id="@+id/et_date2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:ems="10"
-        android:hint="생년월일입력(ex980101)"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_name2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
     <TextView
         android:id="@+id/textView24"
@@ -69,22 +57,9 @@
         android:hint="id를 입력하세요"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_date2" />
-
-    <TextView
-        android:id="@+id/textView22"
-        android:layout_width="57dp"
-        android:layout_height="22dp"
-        android:layout_marginTop="33dp"
-        android:background="#D6D1D1"
-        android:gravity="center"
-        android:text="회원정보"
-        android:textColor="#100F0F"
-        app:layout_constraintEnd_toStartOf="@+id/et_date2"
-        app:layout_constraintHorizontal_bias="0.372"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+        app:layout_constraintTop_toBottomOf="@+id/et_name2" />
 
     <EditText
         android:id="@+id/et_pwd4"

@@ -37,7 +37,6 @@ public class RegisterActivity extends AppCompatActivity {
         metPwd = findViewById(R.id.et_pwd4);
         metId = findViewById(R.id.et_id);
         mEtName = findViewById(R.id.et_name2);
-        mEtDate = findViewById(R.id.et_date2);
         mBtnRegister = findViewById(R.id.btn_register);
 
         mBtnRegister.setOnClickListener(new View.OnClickListener() {
@@ -48,7 +47,6 @@ public class RegisterActivity extends AppCompatActivity {
                 String strPwd = metPwd.getText().toString();
                 String strid = metId.getText().toString();
                 String strName = mEtName.getText().toString();
-                String strDate = mEtDate.getText().toString();
 
                 // Firebase Auth 진행
                 mFirebaseAuth.createUserWithEmailAndPassword(strEmail, strPwd).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>()
@@ -65,7 +63,6 @@ public class RegisterActivity extends AppCompatActivity {
                             account.setEmailId(firebaseUser.getEmail());
                             account.setPassword(strPwd);
                             account.setName(strName);
-                            account.setDate(strDate);
 
                             //setValue : database에 insert
                             mDatabaseRef.child("UserAccount").child(strid).setValue(account);
