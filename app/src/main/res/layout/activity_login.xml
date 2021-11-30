@@ -71,33 +71,45 @@
 
     <Button
         android:id="@+id/btn_login2"
-        android:layout_width="84dp"
-        android:layout_height="42dp"
+        android:layout_width="140dp"
+        android:layout_height="38dp"
         android:layout_margin="8dp"
         android:lineSpacingExtra="12sp"
         android:text="로그인"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.305"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_pwd3"
-        app:layout_constraintVertical_bias="0.144" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/btn_register5"
+        android:id="@+id/btn_id2"
         android:layout_width="84dp"
         android:layout_height="42dp"
         android:layout_margin="8dp"
-        android:layout_marginBottom="128dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="@color/black"
-        android:text="회원가입"
+        android:text="ID찾기"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.691"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_pwd3"
-        app:layout_constraintVertical_bias="0.148" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_login2" />
+
+    <Button
+        android:id="@+id/btn_register2"
+        android:layout_width="84dp"
+        android:layout_height="42dp"
+        android:layout_margin="8dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/black"
+        android:text="회원가입"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.305"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

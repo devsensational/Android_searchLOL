@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.helloandroid.main_view.MainFragment;
+import com.example.helloandroid.main_view.MainFragment_formem;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -48,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         if (task.isSuccessful()){
                             //로그인 성공
-                            Intent intent = new Intent(LoginActivity.this, MainFragment.class);
+                            Intent intent = new Intent(LoginActivity.this, MainFragment_formem.class);
                             startActivity(intent);
                             finish();
                         } else {
@@ -58,13 +59,25 @@ public class LoginActivity extends AppCompatActivity {
                 });
             }
         });
-/*dddd*/
-        Button btn_register = findViewById(R.id.btn_register5);
+
+
+        Button btn_register = findViewById(R.id.btn_register2);
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //회원가입 화면으로 이동
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+        Button btn_id = findViewById(R.id.btn_id2);
+        btn_id.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //아이디 찾기 화면으로 이동
+                Intent intent = new Intent(LoginActivity.this, FindID.class);
                 startActivity(intent);
 
             }

@@ -13,8 +13,8 @@ public class FindID extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_i_d);
 
-        Button imageButton = (Button) findViewById(R.id.button5);
-        imageButton.setOnClickListener(new View.OnClickListener() {
+        Button imageButton1 = (Button) findViewById(R.id.button5);
+        imageButton1.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
