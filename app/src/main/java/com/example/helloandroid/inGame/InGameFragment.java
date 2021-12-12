@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.helloandroid.DataHandlerObject;
 import com.example.helloandroid.MainActivity;
@@ -39,6 +40,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.DatabaseReference;
 import com.example.helloandroid.DataHandlerObject;
@@ -55,6 +57,7 @@ import com.example.helloandroid.RetrofitAPI;
  */
 public class InGameFragment extends Fragment {
     String version = "11.23.1";
+    float[] winAvg = new float[2];
 
 
     public InGameFragment() {
@@ -82,19 +85,19 @@ public class InGameFragment extends Fragment {
             public void onResponse(Call<SummonerId> call, Response<SummonerId> response) {
                 if (response.isSuccessful()) {
                     DataHandlerObject.summonerIds = response.body();
-                    retrofitAPI.getLeagueInfo(DataHandlerObject.summonerIds.getId(),MainActivity.apiKey).enqueue(new Callback<List<LeagueInfo>>() {
+                    retrofitAPI.getLeagueInfo(DataHandlerObject.summonerIds.getId(), MainActivity.apiKey).enqueue(new Callback<List<LeagueInfo>>() {
                         @Override
                         public void onResponse(Call<List<LeagueInfo>> call, Response<List<LeagueInfo>> response) {
                             if (response.isSuccessful()) {
                                 DataHandlerObject.leagueInfos = response.body();
 
-                                retrofitAPI.getSpector(DataHandlerObject.summonerIds.getId(),MainActivity.apiKey).enqueue(new Callback<Spector>() {
+                                retrofitAPI.getSpector(DataHandlerObject.summonerIds.getId(), MainActivity.apiKey).enqueue(new Callback<Spector>() {
                                     @Override
                                     public void onResponse(Call<Spector> call, Response<Spector> response) {
                                         System.out.println(response.code());
-                                        if(response.isSuccessful()){
+                                        if (response.isSuccessful()) {
                                             DataHandlerObject.spector = response.body();
-                                            if(response.code() == 200){
+                                            if (response.code() == 200) {
                                                 System.out.println("불러오기 완료");
 
 
@@ -108,13 +111,13 @@ public class InGameFragment extends Fragment {
                                                     int finalI = i;
                                                     inGameDataObjects.add(new InGameDataObject() {{
                                                         setBlueOrRed(finalI < 5 ? true : false);
-                                                        setChampionImageUrl("https://ddragon.leagueoflegends.com/cdn/"+ version +"/img/champion/"+ ci.cif(sp.get(finalI).getChampionId()) +".png");
+                                                        setChampionImageUrl("https://ddragon.leagueoflegends.com/cdn/" + version + "/img/champion/" + ci.cif(sp.get(finalI).getChampionId()) + ".png");
                                                         setNickname(sp.get(finalI).getSummonerName());
-                                                        setSpell1ImageUrl("https://ddragon.leagueoflegends.com/cdn/"+ version +"/img/spell/"+ si.sif(sp.get(finalI).getSpell1Id())+ ".png");
-                                                        setSpell2ImageUrl("https://ddragon.leagueoflegends.com/cdn/"+ version +"/img/spell/"+ si.sif(sp.get(finalI).getSpell2Id())+".png");
+                                                        setSpell1ImageUrl("https://ddragon.leagueoflegends.com/cdn/" + version + "/img/spell/" + si.sif(sp.get(finalI).getSpell1Id()) + ".png");
+                                                        setSpell2ImageUrl("https://ddragon.leagueoflegends.com/cdn/" + version + "/img/spell/" + si.sif(sp.get(finalI).getSpell2Id()) + ".png");
                                                         System.out.println("룬테스트 : " + sp.get(finalI).getPerks().getPerkIds().get(0) + " : " + sp.get(finalI).getPerks().getPerkSubStyle());
-                                                        setRune1ImageUrl("https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/" + ri.rif(sp.get(finalI).getPerks().getPerkIds().get(0)) +".png");
-                                                        setRune2ImageUrl("https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/" + ri.rif(sp.get(finalI).getPerks().getPerkSubStyle())+ ".png");
+                                                        setRune1ImageUrl("https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/" + ri.rif(sp.get(finalI).getPerks().getPerkIds().get(0)) + ".png");
+                                                        setRune2ImageUrl("https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/" + ri.rif(sp.get(finalI).getPerks().getPerkSubStyle()) + ".png");
                                                         Retrofit retrofit = new Retrofit.Builder()
                                                                 .baseUrl("https://kr.api.riotgames.com")
                                                                 .addConverterFactory(GsonConverterFactory.create())
@@ -125,28 +128,39 @@ public class InGameFragment extends Fragment {
                                                             public void onResponse(Call<SummonerId> call, Response<SummonerId> response) {
                                                                 if (response.isSuccessful()) {
                                                                     SummonerId sid = response.body();
-                                                                    retrofitAPI.getLeagueInfo(sid.getId(),MainActivity.apiKey).enqueue(new Callback<List<LeagueInfo>>() {
+                                                                    retrofitAPI.getLeagueInfo(sid.getId(), MainActivity.apiKey).enqueue(new Callback<List<LeagueInfo>>() {
                                                                         @Override
                                                                         public void onResponse(Call<List<LeagueInfo>> call, Response<List<LeagueInfo>> response) {
                                                                             if (response.isSuccessful()) {
-                                                                                if(response.code() == 200){
+                                                                                if (response.code() == 200) {
                                                                                     List<LeagueInfo> lf = response.body();
                                                                                     int indexNum = 0;
 
-                                                                                    for(int j = 0 ; j < lf.size(); j++) {
+                                                                                    for (int j = 0; j < lf.size(); j++) {
                                                                                         if (lf.get(j).getQueueType().equals("RANKED_SOLO_5x5")) {
                                                                                             indexNum = j;
                                                                                         }
-                                                                                        //setTearText(lf.get(indexNum).getTier() + " " + lf.get(indexNum).getRank());
-                                                                                        //int win = lf.get(indexNum).getWins();
-                                                                                        //int lose = lf.get(indexNum).getLosses();
-                                                                                        //float avg = (float)(win)/((float)win+(float)lose) * 100;
-                                                                                        //setWinRate("승률 : " + String.format("%.2f",avg) + "%");
-                                                                                        //setTearImageUrl(rp.rankParser(lf.get(indexNum).getTier()));
+                                                                                        setTearText(lf.get(indexNum).getTier() + " " + lf.get(indexNum).getRank());
+                                                                                        int win = lf.get(indexNum).getWins();
+                                                                                        int lose = lf.get(indexNum).getLosses();
+                                                                                        float avg = (float) (win) / ((float) win + (float) lose) * 100;
+                                                                                        setWinRate("승률 : " + String.format("%.2f", avg) + "%");
+                                                                                        setTearImageUrl(rp.rankParser(lf.get(indexNum).getTier()));
+                                                                                        //finalI < 5 ? true : false
+                                                                                        int avgIndex = finalI < 5 ? 0 : 1;
+                                                                                        winAvg[avgIndex] += avg;
+                                                                                        System.out.println(finalI + " winAvg = " + winAvg[avgIndex]);
 
+                                                                                        inGameRecyclerView.setAdapter(inGameRecyclerAdapter);
+                                                                                        inGameRecyclerAdapter.setInGameDataObjectList(inGameDataObjects);
+                                                                                        inGameRecyclerView.addItemDecoration(dividerItemDecoration);
 
+                                                                                        TextView txt = (TextView)inflateView.findViewById(R.id.predictBox);
+                                                                                        float val = (winAvg[0] / (winAvg[0] + winAvg[1])) * 100;
+                                                                                        System.out.println("블루팀 승리확률 : " + val + "% 레드팀 승리확률 : " + (100.0 - val) + "%");
+                                                                                        txt.setText("블루팀 승리확률 : " + String.format("%.2f", val) + "% 레드팀 승리확률 : " + String.format("%.2f", (100.0 - val)) + "%");
                                                                                     }
-                                                                                }else{
+                                                                                } else {
                                                                                     System.out.println("인게임 불러오기 실패");
                                                                                 }
                                                                             }
@@ -168,15 +182,14 @@ public class InGameFragment extends Fragment {
                                                     }});
                                                 }
 
-                                                inGameRecyclerView.setAdapter(inGameRecyclerAdapter);
-                                                inGameRecyclerAdapter.setInGameDataObjectList(inGameDataObjects);
-                                                inGameRecyclerView.addItemDecoration(dividerItemDecoration);
 
-                                            }else{
+                                            } else {
                                                 //게임 중 아님
                                             }
+
                                         }
                                     }
+
                                     @Override
                                     public void onFailure(Call<Spector> call, Throwable t) {
                                         System.out.println(t);
