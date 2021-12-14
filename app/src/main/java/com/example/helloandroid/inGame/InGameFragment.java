@@ -48,7 +48,7 @@ import com.example.helloandroid.MainActivity;
 
 import com.example.helloandroid.RiotAPIClass;
 import com.example.helloandroid.RetrofitAPI;
-
+//테스트
 /**
  * 인게임 화면을 구성하는 Fragment
  *
